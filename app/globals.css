@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #dc6f1d;
+  --brand-dark: #a23d13;
+  --sage: #5a8360;
+  --bg: #fdf6ee;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.btn-primary {
+  @apply bg-brand-500 hover:bg-brand-600 text-white font-semibold px-4 py-2.5 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-white hover:bg-brand-50 text-brand-700 border border-brand-200 font-semibold px-4 py-2.5 rounded-xl transition-all duration-200;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-sm border border-brand-100 p-5;
+}
+
+.input {
+  @apply w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition-all;
+}
+
+.label {
+  @apply block text-sm font-semibold text-gray-700 mb-1.5;
+}
