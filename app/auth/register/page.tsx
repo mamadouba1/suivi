@@ -7,6 +7,7 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const [error, setError] = useState('')
@@ -16,7 +17,7 @@ export default function RegisterPage() {
     setLoading(true)
     setError('')
     if (password.length < 6) {
-      setError('Le mot de passe doit contenir au moins 6 caractères.')
+      setError('Le mot de passe doit contenir au moins 6 caracteres.')
       setLoading(false)
       return
     }
@@ -26,11 +27,11 @@ export default function RegisterPage() {
       password,
       options: {
         data: { full_name: fullName },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: window.location.origin + '/auth/callback',
       },
     })
     if (error) {
-      setError(error.message === 'User already registered' ? 'Cette adresse email est déjà utilisée. Veuillez vous connecter.' : error.message)
+      setError(error.message === 'User already registered' ? 'Cette adresse email est deja utilisee. Veuillez vous connecter.' : error.message)
       setLoading(false)
     } else {
       setDone(true)
@@ -46,16 +47,16 @@ export default function RegisterPage() {
             Bienvenue, {fullName} !
           </h2>
           <p className="text-gray-600 mb-2">
-            Votre compte a bien été créé. Un email de confirmation a été envoyé à <strong>{email}</strong>.
+            Votre compte a bien ete cree. Un email de confirmation a ete envoye a <strong>{email}</strong>.
           </p>
           <p className="text-gray-500 text-sm mb-2">
             Cliquez sur le lien dans l&apos;email pour activer votre compte.
           </p>
           <p className="text-gray-500 text-sm">
-            Une fois votre email confirmé, vous serez redirigé vers la page de connexion pour accéder à votre espace.
+            Une fois confirme, vous serez redirige vers la connexion.
           </p>
           <Link href="/auth/login" className="btn-primary inline-block mt-6">
-            Aller à la connexion
+            Aller a la connexion
           </Link>
         </div>
       </main>
@@ -68,9 +69,9 @@ export default function RegisterPage() {
         <div className="text-center mb-8">
           <div className="text-5xl mb-3">💰</div>
           <h1 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
-            Créer mon compte
+            Creer mon compte
           </h1>
-          <p className="text-gray-500 text-sm mt-1">Gérez vos dépenses familiales facilement</p>
+          <p className="text-gray-500 text-sm mt-1">Gerez vos depenses familiales facilement</p>
         </div>
 
         <div className="card">
@@ -85,7 +86,7 @@ export default function RegisterPage() {
               <input
                 type="text"
                 className="input"
-                placeholder="Nom et prénom"
+                placeholder="Nom et prenom"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
@@ -104,23 +105,32 @@ export default function RegisterPage() {
             </div>
             <div>
               <label className="label">Mot de passe</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Minimum 6 caractères"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="input pr-12"
+                  placeholder="Minimum 6 caracteres"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
             <button type="submit" className="btn-primary w-full" disabled={loading}>
-              {loading ? 'Création...' : 'Créer mon compte'}
+              {loading ? 'Creation...' : 'Creer mon compte'}
             </button>
           </form>
         </div>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          Déjà un compte ?{' '}
+          Deja un compte ?{' '}
           <Link href="/auth/login" className="text-brand-600 font-semibold hover:underline">
             Se connecter
           </Link>
