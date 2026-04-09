@@ -30,7 +30,7 @@ export default function RegisterPage() {
       },
     })
     if (error) {
-      setError(error.message)
+      setError(error.message === 'User already registered' ? 'Cette adresse email est déjà utilisée. Veuillez vous connecter.' : error.message)
       setLoading(false)
     } else {
       setDone(true)

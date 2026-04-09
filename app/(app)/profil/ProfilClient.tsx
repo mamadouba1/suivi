@@ -85,8 +85,8 @@ export default function ProfilClient({ userId, email, fullName, devise }: Props)
 
       {/* Infos app */}
       <div className="card text-center text-xs text-gray-400 space-y-1">
-        <p>🇸🇳 Suivi Dépenses Familiales</p>
-        <p>Conçu pour les familles sénégalaises</p>
+        <p>💰 Suivi Dépenses</p>
+        <p>Conçu pour toutes les familles</p>
         <p className="text-brand-400">v1.0.0</p>
       </div>
     </div>
