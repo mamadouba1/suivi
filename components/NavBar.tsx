@@ -9,6 +9,8 @@ const LINKS = [
   { href: '/entrees', label: 'Entrées', icon: '💰' },
   { href: '/historique', label: 'Historique', icon: '📅' },
   { href: '/profil', label: 'Mon profil', icon: '👤' },
+  { href: '/projets', label: 'Projets', icon: '🏗️' },
+  { href: '/projets', label: 'Projets', icon: '🏗️' },
   { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
   { href: '/soutien', label: 'Soutenir', icon: '❤️' },
 ]
@@ -18,6 +20,8 @@ const MOBILE_LINKS = [
   { href: '/depenses', label: 'Dépenses', icon: '💸' },
   { href: '/entrees', label: 'Entrées', icon: '💰' },
   { href: '/historique', label: 'Historique', icon: '📅' },
+  { href: '/projets', label: 'Projets', icon: '🏗️' },
+  { href: '/projets', label: 'Projets', icon: '🏗️' },
   { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
   { href: '/soutien', label: 'Soutenir', icon: '❤️' },
 ]
