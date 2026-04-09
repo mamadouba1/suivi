@@ -9,7 +9,8 @@ export default function Home() {
           Suivi Dépenses
         </h1>
         <p className="text-gray-600 text-lg mb-2">Gérez les finances de votre famille</p>
-        <p className="text-brand-600 text-sm mb-8">Conçu pour les familles sénégalaises 🇸🇳</p>
+        <p className="text-gray-500 text-sm mb-4">Suivez vos dépenses et entrées d'argent mois par mois, recevez un récapitulatif par email et gardez le contrôle de votre budget familial.</p>
+        <p className="text-gray-400 text-xs mb-8">Créez un compte gratuitement pour commencer à utiliser l'application.</p>
 
         <div className="flex flex-col gap-3">
           <Link href="/auth/register" className="btn-primary text-center block text-lg py-3">

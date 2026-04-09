@@ -43,13 +43,16 @@ export default function RegisterPage() {
         <div className="text-center max-w-sm">
           <div className="text-6xl mb-4">📧</div>
           <h2 className="text-2xl font-bold text-brand-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
-            Vérifiez votre email !
+            Bienvenue, {fullName} !
           </h2>
           <p className="text-gray-600 mb-2">
-            Un lien de confirmation a été envoyé à <strong>{email}</strong>.
+            Votre compte a bien été créé. Un email de confirmation a été envoyé à <strong>{email}</strong>.
+          </p>
+          <p className="text-gray-500 text-sm mb-2">
+            Cliquez sur le lien dans l&apos;email pour activer votre compte.
           </p>
           <p className="text-gray-500 text-sm">
-            Cliquez sur le lien dans l&apos;email pour activer votre compte, puis connectez-vous.
+            Une fois votre email confirmé, vous serez redirigé vers la page de connexion pour accéder à votre espace.
           </p>
           <Link href="/auth/login" className="btn-primary inline-block mt-6">
             Aller à la connexion
@@ -63,7 +66,7 @@ export default function RegisterPage() {
     <main className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(135deg, #fdf6ee 0%, #f9e8d0 100%)' }}>
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="text-5xl mb-3">🇸🇳</div>
+          <div className="text-5xl mb-3">💰</div>
           <h1 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
             Créer mon compte
           </h1>
@@ -82,7 +85,7 @@ export default function RegisterPage() {
               <input
                 type="text"
                 className="input"
-                placeholder="Mamadou Diallo"
+                placeholder="Nom et prénom"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
@@ -93,7 +96,7 @@ export default function RegisterPage() {
               <input
                 type="email"
                 className="input"
-                placeholder="vous@exemple.com"
+                placeholder="votre@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
