@@ -1,35 +1,37 @@
 'use client'
 import Link from 'next/link'
 import SelecteurLangue from './SelecteurLangue'
+import { useLangue } from '@/lib/langue-context'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
 const LINKS = [
-  { href: '/dashboard', label: 'Tableau de bord', icon: '📊' },
+  { href: '/dashboard', label: tr('dashboard'), icon: '📊' },
   { href: '/depenses', label: 'Dépenses', icon: '💸' },
-  { href: '/entrees', label: 'Entrées', icon: '💰' },
-  { href: '/historique', label: 'Historique', icon: '📅' },
-  { href: '/profil', label: 'Mon profil', icon: '👤' },
-  { href: '/projets', label: 'Projets', icon: '🏗️' },
-  { href: '/boutique', label: 'Boutique', icon: '🏪' },
-  { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
-  { href: '/soutien', label: 'Soutenir', icon: '❤️' },
+  { href: '/entrees', label: tr('entrees'), icon: '💰' },
+  { href: '/historique', label: tr('historique'), icon: '📅' },
+  { href: '/profil', label: tr('profil'), icon: '👤' },
+  { href: '/projets', label: tr('projets'), icon: '🏗️' },
+  { href: '/boutique', label: tr('boutique'), icon: '🏪' },
+  { href: '/parrainage', label: tr('parrainage'), icon: '🤝' },
+  { href: '/soutien', label: tr('soutien'), icon: '❤️' },
 ]
 
 const MOBILE_LINKS = [
   { href: '/dashboard', label: 'Accueil', icon: '📊' },
   { href: '/depenses', label: 'Dépenses', icon: '💸' },
-  { href: '/entrees', label: 'Entrées', icon: '💰' },
-  { href: '/historique', label: 'Historique', icon: '📅' },
-  { href: '/projets', label: 'Projets', icon: '🏗️' },
-  { href: '/boutique', label: 'Boutique', icon: '🏪' },
-  { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
-  { href: '/soutien', label: 'Soutenir', icon: '❤️' },
+  { href: '/entrees', label: tr('entrees'), icon: '💰' },
+  { href: '/historique', label: tr('historique'), icon: '📅' },
+  { href: '/projets', label: tr('projets'), icon: '🏗️' },
+  { href: '/boutique', label: tr('boutique'), icon: '🏪' },
+  { href: '/parrainage', label: tr('parrainage'), icon: '🤝' },
+  { href: '/soutien', label: tr('soutien'), icon: '❤️' },
 ]
 
 export default function NavBar({ userName }: { userName: string }) {
   const pathname = usePathname()
   const router = useRouter()
+  const { tr } = useLangue()
 
   async function handleLogout() {
     const supabase = createClient()
