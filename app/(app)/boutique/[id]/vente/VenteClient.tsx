@@ -129,7 +129,7 @@ export default function VenteClient({ boutique, produits, clients, ventes }: {
     )
 
     for (const item of cart) {
-      await supabase.rpc('decrement_stock', { p_id: item.produit_id, qty: item.quantite }).catch(() => {})
+      const { error: rpcError } = await supabase.rpc('decrement_stock', { p_id: item.produit_id, qty: item.quantite }); if (rpcError) console.error(rpcError)
     }
 
     if (clientId && modePaiement === 'credit') {
