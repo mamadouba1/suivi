@@ -9,6 +9,17 @@ const LINKS = [
   { href: '/entrees', label: 'Entrées', icon: '💰' },
   { href: '/historique', label: 'Historique', icon: '📅' },
   { href: '/profil', label: 'Mon profil', icon: '👤' },
+  { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
+  { href: '/soutien', label: 'Soutenir', icon: '❤️' },
+]
+
+const MOBILE_LINKS = [
+  { href: '/dashboard', label: 'Accueil', icon: '📊' },
+  { href: '/depenses', label: 'Dépenses', icon: '💸' },
+  { href: '/entrees', label: 'Entrées', icon: '💰' },
+  { href: '/historique', label: 'Historique', icon: '📅' },
+  { href: '/parrainage', label: 'Parrainer', icon: '🤝' },
+  { href: '/soutien', label: 'Soutenir', icon: '❤️' },
 ]
 
 export default function NavBar({ userName }: { userName: string }) {
@@ -34,7 +45,7 @@ export default function NavBar({ userName }: { userName: string }) {
           <p className="text-xs text-gray-400 mt-0.5 truncate">{userName}</p>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {LINKS.map((link) => (
             <Link
               key={link.href}
@@ -62,22 +73,21 @@ export default function NavBar({ userName }: { userName: string }) {
       </aside>
 
       {/* Bottom nav mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-brand-100 z-20 flex items-center justify-around px-2 py-2">
-        {LINKS.slice(0, 4).map((link) => (
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-brand-100 z-20 flex items-center justify-around px-1 py-2 overflow-x-auto">
+        {MOBILE_LINKS.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-xs font-medium transition-all flex-shrink-0 ${
               pathname === link.href ? 'text-brand-600' : 'text-gray-400'
             }`}
           >
             <span className="text-xl">{link.icon}</span>
-            <span className="hidden xs:block">{link.label.split(' ')[0]}</span>
           </Link>
         ))}
         <button
           onClick={handleLogout}
-          className="flex flex-col items-center gap-0.5 px-3 py-1.5 text-xs font-medium text-gray-400"
+          className="flex flex-col items-center gap-0.5 px-2 py-1 text-xs font-medium text-gray-400 flex-shrink-0"
         >
           <span className="text-xl">🚪</span>
         </button>
