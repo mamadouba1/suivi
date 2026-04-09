@@ -3,7 +3,7 @@ import { getMoisActuel, formatMontant, formatMois } from '@/lib/utils'
 import DashboardClient from './DashboardClient'
 
 export default async function DashboardPage() {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   const mois = getMoisActuel()

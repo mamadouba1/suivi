@@ -3,7 +3,7 @@ import { getMoisActuel } from '@/lib/utils'
 import EntreesClient from './EntreesClient'
 
 export default async function EntreesPage() {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
   const mois = getMoisActuel()
 

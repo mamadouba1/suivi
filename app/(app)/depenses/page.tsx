@@ -3,7 +3,7 @@ import { getMoisActuel } from '@/lib/utils'
 import DepensesClient from './DepensesClient'
 
 export default async function DepensesPage() {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
   const mois = getMoisActuel()
 

@@ -3,7 +3,7 @@ import { getListeMois, formatMontant, formatMois } from '@/lib/utils'
 import Link from 'next/link'
 
 export default async function HistoriquePage({ searchParams }: { searchParams: { mois?: string } }) {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   const moisList = getListeMois(12)

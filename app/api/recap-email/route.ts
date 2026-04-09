@@ -4,7 +4,7 @@ import { getMoisActuel, formatMontant, formatMois } from '@/lib/utils'
 
 export async function POST() {
   try {
-    const supabase = createServerSupabaseClient()
+    const supabase = await createServerSupabaseClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })

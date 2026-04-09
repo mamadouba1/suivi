@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import NavBar from '@/components/NavBar'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/auth/login')
