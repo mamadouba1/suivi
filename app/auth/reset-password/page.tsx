@@ -1,13 +1,24 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
 export default function ResetPasswordPage() {
   const router = useRouter()
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // Token valide, on peut continuer
+      }
+    })
+  }, [])
 
   async function handleUpdate(e: React.FormEvent) {
     e.preventDefault()
@@ -16,14 +27,31 @@ export default function ResetPasswordPage() {
       return
     }
     setLoading(true)
+    setError('')
     const supabase = createClient()
     const { error } = await supabase.auth.updateUser({ password })
     if (error) {
-      setError('Erreur lors de la reinitialisation. Reessayez.')
+      setError('Lien expire ou invalide. Demandez un nouveau lien de reinitialisation.')
       setLoading(false)
     } else {
-      router.push('/dashboard')
+      setSuccess(true)
+      setTimeout(() => router.push('/auth/login'), 3000)
     }
+  }
+
+  if (success) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(135deg, #fdf6ee 0%, #f9e8d0 100%)' }}>
+        <div className="text-center max-w-sm">
+          <div className="text-6xl mb-4">✅</div>
+          <h2 className="text-2xl font-bold text-brand-800 mb-3" style={{ fontFamily: 'Georgia, serif' }}>
+            Mot de passe mis a jour !
+          </h2>
+          <p className="text-gray-600 mb-2">Votre mot de passe a ete change avec succes.</p>
+          <p className="text-gray-500 text-sm">Vous allez etre redirige vers la connexion...</p>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -46,14 +74,23 @@ export default function ResetPasswordPage() {
             )}
             <div>
               <label className="label">Nouveau mot de passe</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Minimum 6 caracteres"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="input pr-12"
+                  placeholder="Minimum 6 caracteres"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-lg"
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
             <button type="submit" className="btn-primary w-full" disabled={loading}>
               {loading ? 'Mise a jour...' : 'Enregistrer le mot de passe'}
