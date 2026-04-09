@@ -15,7 +15,7 @@ export default function ParrainagePage() {
   const smsMsg = encodeURIComponent('Essaie Suivi Depenses pour gerer ton budget familial : ' + appUrl)
 
   return (
-    <main className="max-w-lg mx-auto px-4 py-8">
+    <div className="max-w-lg mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <div className="text-5xl mb-3">🤝</div>
         <h1 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
@@ -69,6 +69,6 @@ export default function ParrainagePage() {
           Plus vous partagez, plus votre famille et vos amis pourront mieux gerer leur budget. C&apos;est gratuit pour tout le monde !
         </p>
       </div>
-    </main>
+    </div>
   )
 }
