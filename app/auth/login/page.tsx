@@ -18,7 +18,7 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
-      setError('Email ou mot de passe incorrect.')
+      setError('Email ou mot de passe incorrect. Vous pouvez reinitialiser votre mot de passe ci-dessous.')
       setLoading(false)
     } else {
       router.push('/dashboard')
@@ -40,6 +40,11 @@ export default function LoginPage() {
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-sm">
                 {error}
+                <div className="mt-2">
+                  <Link href="/auth/forgot-password" className="text-red-700 font-semibold underline">
+                    Reinitialiser mon mot de passe
+                  </Link>
+                </div>
               </div>
             )}
             <div>
@@ -47,7 +52,7 @@ export default function LoginPage() {
               <input
                 type="email"
                 className="input"
-                placeholder="vous@exemple.com"
+                placeholder="votre@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -70,8 +75,14 @@ export default function LoginPage() {
           </form>
         </div>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
-          Pas encore de compte ?{' '}
+        <div className="text-center mt-4">
+          <Link href="/auth/forgot-password" className="text-sm text-brand-600 hover:underline">
+            Mot de passe oublie ?
+          </Link>
+        </div>
+
+        <p className="text-center text-sm text-gray-500 mt-3">
+          Pas encore de compte ?{" "}
           <Link href="/auth/register" className="text-brand-600 font-semibold hover:underline">
             S&apos;inscrire
           </Link>
