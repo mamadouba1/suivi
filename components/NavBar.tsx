@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import SelecteurLangue from './SelecteurLangue'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
@@ -66,7 +67,8 @@ export default function NavBar({ userName }: { userName: string }) {
           ))}
         </nav>
 
-        <div className="p-3 border-t border-brand-100">
+        <div className="p-3 border-t border-brand-100 space-y-2">
+          <SelecteurLangue />
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all"
