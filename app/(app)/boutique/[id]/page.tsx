@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import BoutiqueActions from './BoutiqueActions'
 
 export default async function BoutiqueDetailPage({ params }: { params: { id: string } }) {
   const supabase = await createServerSupabaseClient()
@@ -23,8 +24,9 @@ export default async function BoutiqueDetailPage({ params }: { params: { id: str
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <Link href="/boutique" className="text-brand-600 text-sm hover:underline">← Mes boutiques</Link>
+        <BoutiqueActions boutiqueId={params.id} />
       </div>
 
       <div className="card mb-6">
@@ -82,6 +84,16 @@ export default async function BoutiqueDetailPage({ params }: { params: { id: str
           <div className="text-3xl mb-2">💸</div>
           <p className="font-semibold text-gray-700">Depenses</p>
           <p className="text-xs text-gray-400 mt-1">{(depenses || []).length} depenses</p>
+        </Link>
+        <Link href={"/boutique/" + params.id + "/rapports"} className="card text-center hover:shadow-md transition cursor-pointer">
+          <div className="text-3xl mb-2">📊</div>
+          <p className="font-semibold text-gray-700">Rapports</p>
+          <p className="text-xs text-gray-400 mt-1">Analyse mensuelle</p>
+        </Link>
+        <Link href={"/boutique/" + params.id + "/caisse"} className="card text-center hover:shadow-md transition cursor-pointer">
+          <div className="text-3xl mb-2">💰</div>
+          <p className="font-semibold text-gray-700">Caisse du jour</p>
+          <p className="text-xs text-gray-400 mt-1">Rapport journalier</p>
         </Link>
       </div>
     </div>

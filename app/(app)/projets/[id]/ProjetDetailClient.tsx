@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
+import ProjetActions from './ProjetActions'
 
 interface Transaction {
   id: string
@@ -67,8 +68,9 @@ export default function ProjetDetailClient({ projet, transactions, devise }: {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <Link href="/projets" className="text-brand-600 text-sm hover:underline">← Mes projets</Link>
+        <ProjetActions projetId={projet.id} />
       </div>
 
       <div className="card mb-4">
