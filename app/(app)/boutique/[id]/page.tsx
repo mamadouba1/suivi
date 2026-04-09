@@ -75,6 +75,16 @@ export default async function BoutiqueDetailPage({ params }: { params: { id: str
           <p className="font-semibold text-gray-700">Produits</p>
           <p className="text-xs text-gray-400 mt-1">{(produits || []).length} articles</p>
         </Link>
+        <Link href={"/boutique/" + params.id + "/fournisseurs"} className="card text-center hover:shadow-md transition cursor-pointer">
+          <div className="text-3xl mb-2">👨‍💼</div>
+          <p className="font-semibold text-gray-700">Fournisseurs</p>
+          <p className="text-xs text-gray-400 mt-1">Reappros et dettes</p>
+        </Link>
+        <Link href={"/boutique/" + params.id + "/objectifs"} className="card text-center hover:shadow-md transition cursor-pointer">
+          <div className="text-3xl mb-2">🎯</div>
+          <p className="font-semibold text-gray-700">Objectifs</p>
+          <p className="text-xs text-gray-400 mt-1">Suivi progression</p>
+        </Link>
         <Link href={"/boutique/" + params.id + "/clients"} className="card text-center hover:shadow-md transition cursor-pointer">
           <div className="text-3xl mb-2">👥</div>
           <p className="font-semibold text-gray-700">Clients</p>
