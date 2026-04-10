@@ -15,10 +15,12 @@ interface Props {
   depenses: Record<string, unknown>[]
   entrees: Record<string, unknown>[]
   userName: string
+  familleId?: string
+  familleName?: string
 }
 
 export default function DashboardClient({
-  mois, totalDepenses, totalEntrees, solde, devise, chartData, depenses, entrees, userName
+  mois, totalDepenses, totalEntrees, solde, devise, chartData, depenses, entrees, userName, familleId, familleName
 }: Props) {
   const dernierDepenses = [...depenses]
     .sort((a, b) => new Date(b.date as string).getTime() - new Date(a.date as string).getTime())
@@ -27,11 +29,18 @@ export default function DashboardClient({
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
-          Bonjour{userName ? `, ${userName.split(' ')[0]}` : ''} 👋
-        </h2>
-        <p className="text-gray-500 text-sm">{formatMois(mois)}</p>
+      <div className="flex items-center gap-3">
+        {familleId && (
+          <a href={`/famille/${familleId}`} className="text-sm text-brand-600 hover:underline flex items-center gap-1">
+            ← Retour
+          </a>
+        )}
+        <div>
+          <h2 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
+            {familleName ? `Tableau de bord · ${familleName}` : `Bonjour${userName ? `, ${userName.split(' ')[0]}` : ''} 👋`}
+          </h2>
+          <p className="text-gray-500 text-sm">{formatMois(mois)}</p>
+        </div>
       </div>
 
       {/* Cartes résumé */}
@@ -58,7 +67,6 @@ export default function DashboardClient({
       {/* Graphiques */}
       {chartData.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Bar chart */}
           <div className="card">
             <h3 className="font-semibold text-gray-700 mb-4 text-sm">Dépenses par catégorie</h3>
             <ResponsiveContainer width="100%" height={200}>
@@ -75,7 +83,6 @@ export default function DashboardClient({
             </ResponsiveContainer>
           </div>
 
-          {/* Pie chart */}
           <div className="card">
             <h3 className="font-semibold text-gray-700 mb-4 text-sm">Répartition</h3>
             <ResponsiveContainer width="100%" height={200}>
@@ -105,7 +112,8 @@ export default function DashboardClient({
       <div className="card">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-gray-700">Dernières dépenses</h3>
-          <a href="/depenses" className="text-brand-600 text-sm font-medium hover:underline">Voir tout →</a>
+          <a href={familleId ? `/depenses?famille=${familleId}` : '/depenses'}
+            className="text-brand-600 text-sm font-medium hover:underline">Voir tout →</a>
         </div>
         {dernierDepenses.length === 0 ? (
           <div className="text-center py-8 text-gray-400">

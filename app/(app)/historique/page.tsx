@@ -8,35 +8,43 @@ export default async function HistoriquePage({ searchParams }: { searchParams: {
 
   const moisList = getListeMois(12)
   const moisSelectionne = searchParams.mois || moisList[0].key
-  const familleFiltre = searchParams.famille
+  const familleId = searchParams.famille
 
-  const [{ data: depenses }, { data: entrees }, { data: profile }] = await Promise.all([
-    supabase.from('depenses').select('*').eq('user_id', user!.id).eq('mois', moisSelectionne).order('date', { ascending: false }),
-    supabase.from('entrees').select('*').eq('user_id', user!.id).eq('mois', moisSelectionne).order('date', { ascending: false }),
-    supabase.from('profiles').select('devise').eq('id', user!.id).single(),
-  ])
+  let depenses, entrees, profile, familleName
+
+  if (familleId) {
+    const [{ data: d }, { data: e }, { data: p }, { data: f }] = await Promise.all([
+      supabase.from('depenses').select('*').eq('famille_id', familleId).eq('mois', moisSelectionne).order('date', { ascending: false }),
+      supabase.from('entrees').select('*').eq('famille_id', familleId).eq('mois', moisSelectionne).order('date', { ascending: false }),
+      supabase.from('profiles').select('devise').eq('id', user!.id).single(),
+      supabase.from('familles').select('nom').eq('id', familleId).single(),
+    ])
+    depenses = d; entrees = e; profile = p; familleName = f?.nom
+  } else {
+    const [{ data: d }, { data: e }, { data: p }] = await Promise.all([
+      supabase.from('depenses').select('*').eq('user_id', user!.id).eq('mois', moisSelectionne).order('date', { ascending: false }),
+      supabase.from('entrees').select('*').eq('user_id', user!.id).eq('mois', moisSelectionne).order('date', { ascending: false }),
+      supabase.from('profiles').select('devise').eq('id', user!.id).single(),
+    ])
+    depenses = d; entrees = e; profile = p
+  }
 
   const devise = profile?.devise || 'FCFA'
-
-  const depensesFiltrees = familleFiltre
-    ? (depenses || []).filter(d => d.type === familleFiltre)
-    : (depenses || [])
-
-  const totalD = depensesFiltrees.reduce((s, d) => s + d.montant_depense, 0)
+  const totalD = (depenses || []).reduce((s, d) => s + d.montant_depense, 0)
   const totalE = (entrees || []).reduce((s, e) => s + e.montant, 0)
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="flex items-center gap-3">
-        {familleFiltre && (
-          <Link href={`/historique?mois=${moisSelectionne}`}
+        {familleId && (
+          <Link href={`/famille/${familleId}`}
             className="text-sm text-brand-600 hover:underline flex items-center gap-1">
             ← Retour
           </Link>
         )}
         <div>
           <h2 className="text-2xl font-bold text-brand-800" style={{ fontFamily: 'Georgia, serif' }}>
-            {familleFiltre ? `Historique · ${familleFiltre}` : 'Historique'}
+            {familleName ? `Historique · ${familleName}` : 'Historique'}
           </h2>
           <p className="text-sm text-gray-500">Consultez vos données mois par mois</p>
         </div>
@@ -46,7 +54,7 @@ export default async function HistoriquePage({ searchParams }: { searchParams: {
       <div className="flex gap-2 flex-wrap">
         {moisList.map(({ key, label }) => (
           <Link key={key}
-            href={familleFiltre ? `/historique?mois=${key}&famille=${familleFiltre}` : `/historique?mois=${key}`}
+            href={familleId ? `/historique?mois=${key}&famille=${familleId}` : `/historique?mois=${key}`}
             className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
               moisSelectionne === key
                 ? 'bg-brand-500 text-white border-brand-500'
@@ -77,15 +85,12 @@ export default async function HistoriquePage({ searchParams }: { searchParams: {
 
       {/* Dépenses */}
       <div className="card">
-        <h3 className="font-semibold text-gray-700 mb-3">
-          💸 Dépenses ({depensesFiltrees.length})
-          {familleFiltre && <span className="ml-2 text-xs font-normal text-gray-400">filtrées : {familleFiltre}</span>}
-        </h3>
-        {depensesFiltrees.length === 0 ? (
+        <h3 className="font-semibold text-gray-700 mb-3">💸 Dépenses ({(depenses || []).length})</h3>
+        {(depenses || []).length === 0 ? (
           <p className="text-sm text-gray-400 py-4 text-center">Aucune dépense ce mois</p>
         ) : (
           <div className="space-y-2">
-            {depensesFiltrees.map((d) => (
+            {(depenses || []).map((d) => (
               <div key={d.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                 <div>
                   <p className="text-sm font-medium">{d.libelle}</p>
@@ -99,26 +104,24 @@ export default async function HistoriquePage({ searchParams }: { searchParams: {
       </div>
 
       {/* Entrées */}
-      {!familleFiltre && (
-        <div className="card">
-          <h3 className="font-semibold text-gray-700 mb-3">💰 Revenus ({(entrees || []).length})</h3>
-          {(entrees || []).length === 0 ? (
-            <p className="text-sm text-gray-400 py-4 text-center">Aucun revenu ce mois</p>
-          ) : (
-            <div className="space-y-2">
-              {(entrees || []).map((e) => (
-                <div key={e.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
-                  <div>
-                    <p className="text-sm font-medium">{e.personne}</p>
-                    <p className="text-xs text-gray-400">{e.date}</p>
-                  </div>
-                  <span className="text-sm font-bold text-sage-600">{formatMontant(e.montant, devise)}</span>
+      <div className="card">
+        <h3 className="font-semibold text-gray-700 mb-3">💰 Revenus ({(entrees || []).length})</h3>
+        {(entrees || []).length === 0 ? (
+          <p className="text-sm text-gray-400 py-4 text-center">Aucun revenu ce mois</p>
+        ) : (
+          <div className="space-y-2">
+            {(entrees || []).map((e) => (
+              <div key={e.id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                <div>
+                  <p className="text-sm font-medium">{e.personne}</p>
+                  <p className="text-xs text-gray-400">{e.date}</p>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+                <span className="text-sm font-bold text-sage-600">{formatMontant(e.montant, devise)}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
