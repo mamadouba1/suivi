@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useApp } from '@/lib/app-context'
 
 export default function NavBar({ userName }: { userName: string }) {
@@ -8,6 +8,7 @@ export default function NavBar({ userName }: { userName: string }) {
   const { tr } = useApp()
 
   const LINKS = [
+    { href: '/accueil', label: 'Accueil', icon: '🏠' },
     { href: '/famille', label: tr('famille'), icon: '👨‍👩‍👧‍👦' },
     { href: '/boutique', label: tr('boutique'), icon: '🏪' },
     { href: '/projets', label: tr('projets'), icon: '🏗️' },
@@ -17,10 +18,10 @@ export default function NavBar({ userName }: { userName: string }) {
   ]
 
   const MOBILE_LINKS = [
+    { href: '/accueil', label: 'Accueil', icon: '🏠' },
     { href: '/famille', label: tr('famille'), icon: '👨‍👩‍👧‍👦' },
     { href: '/boutique', label: tr('boutique'), icon: '🏪' },
     { href: '/projets', label: tr('projets'), icon: '🏗️' },
-    { href: '/parrainage', label: tr('parrainage'), icon: '🤝' },
     { href: '/parametres', label: tr('parametres'), icon: '⚙️' },
   ]
 
@@ -36,16 +37,11 @@ export default function NavBar({ userName }: { userName: string }) {
           <p className="text-xs text-gray-400 mt-0.5 truncate">{userName}</p>
         </div>
 
-        <div className="px-3 pt-3 pb-1">
-            <Link href="/accueil" className="flex items-center gap-2 text-xs text-gray-400 hover:text-brand-600 transition-colors">
-              ← Accueil
-            </Link>
-          </div>
-          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {LINKS.map((link) => (
             <Link key={link.href} href={link.href}
               className={"flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all " +
-                (pathname.startsWith(link.href)
+                (pathname === link.href || (link.href !== '/accueil' && pathname.startsWith(link.href))
                   ? 'bg-brand-500 text-white shadow-sm'
                   : 'text-gray-600 dark:text-gray-300 hover:bg-brand-50 dark:hover:bg-gray-700 hover:text-brand-700')}>
               <span>{link.icon}</span>
@@ -60,8 +56,10 @@ export default function NavBar({ userName }: { userName: string }) {
         {MOBILE_LINKS.map((link) => (
           <Link key={link.href} href={link.href}
             className={"flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl text-xs font-medium transition-all flex-shrink-0 " +
-              (pathname.startsWith(link.href) ? 'text-brand-600' : 'text-gray-400 dark:text-gray-500')}>
+              (pathname === link.href || (link.href !== '/accueil' && pathname.startsWith(link.href))
+                ? 'text-brand-600' : 'text-gray-400 dark:text-gray-500')}>
             <span className="text-xl">{link.icon}</span>
+            <span>{link.label}</span>
           </Link>
         ))}
       </nav>
