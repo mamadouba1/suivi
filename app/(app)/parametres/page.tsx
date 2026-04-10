@@ -83,15 +83,15 @@ export default function ParametresPage() {
         <form onSubmit={handleSave} className="space-y-3">
           <div>
             <label className="label">Nom complet</label>
-            <input type="text" className="input" value={name} onChange={e => setName(e.target.value)} />
+            <input type="text" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-400 text-sm transition" value={name} onChange={e => setName(e.target.value)} />
           </div>
           <div>
             <label className="label">Email</label>
-            <input type="email" className="input" value={email} disabled style={{ background: '#f9fafb', color: '#6b7280' }} />
+            <input type="email" className="input" value={email} disabled className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-400 dark:text-gray-500 cursor-not-allowed text-sm" style={{}} />
           </div>
           <div>
             <label className="label">Devise</label>
-            <select className="input" value={devise} onChange={e => setDevise(e.target.value)}>
+            <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-400 text-sm transition" value={devise} onChange={e => setDevise(e.target.value)}>
               <option value="FCFA">FCFA</option>
               <option value="EUR">EUR</option>
               <option value="USD">USD</option>

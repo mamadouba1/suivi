@@ -38,3 +38,37 @@ body {
 .label {
   @apply block text-sm font-semibold text-gray-700 mb-1.5;
 }
+
+/* ===== DARK MODE FIXES ===== */
+.dark .input {
+  background-color: rgb(55 65 81);
+  color: rgb(243 244 246);
+  border-color: rgb(75 85 99);
+}
+.dark .input::placeholder {
+  color: rgb(156 163 175);
+}
+.dark .card {
+  background-color: rgb(31 41 55);
+  border-color: rgb(55 65 81);
+}
+.dark .label {
+  color: rgb(209 213 219);
+}
+
+/* ===== DARK MODE FIXES ===== */
+.dark .input {
+  background-color: rgb(55 65 81);
+  color: rgb(243 244 246);
+  border-color: rgb(75 85 99);
+}
+.dark .input::placeholder {
+  color: rgb(156 163 175);
+}
+.dark .card {
+  background-color: rgb(31 41 55);
+  border-color: rgb(55 65 81);
+}
+.dark .label {
+  color: rgb(209 213 219);
+}
