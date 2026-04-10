@@ -5,7 +5,7 @@ const MODULES = [
   { href: '/boutique', icon: '🛍️', label: 'Boutiques', description: 'Suivi de vos boutiques' },
   { href: '/projets', icon: '📋', label: 'Projets', description: 'Vos projets en cours' },
   { href: '/parrainage', icon: '🤝', label: 'Parrainer', description: 'Parrainez vos proches' },
-  { href: '/soutien', icon: '❤️', label: 'Soutenir', description: 'Soutenez l\'application' },
+  { href: '/soutien', icon: '❤️', label: 'Soutenir', description: "Soutenez l'application" },
   { href: '/parametres', icon: '⚙️', label: 'Paramètres', description: 'Gérez votre compte' },
 ]
 
@@ -27,11 +27,11 @@ export default async function AccueilPage() {
       <div className="grid grid-cols-2 gap-4">
         {MODULES.map(({ href, icon, label, description }) => (
           <a key={href} href={href}
-            className="card flex flex-col items-start gap-2 hover:border-brand-300 hover:shadow-md transition-all cursor-pointer border border-transparent">
+            className="card flex flex-col gap-3 hover:border-brand-400 hover:shadow-md transition-all cursor-pointer border border-gray-100">
             <span className="text-3xl">{icon}</span>
             <div>
-              <p className="font-semibold text-gray-800">{label}</p>
-              <p className="text-xs text-gray-400">{description}</p>
+              <p className="font-bold text-gray-800 text-base">{label}</p>
+              <p className="text-xs text-gray-400 mt-0.5">{description}</p>
             </div>
           </a>
         ))}

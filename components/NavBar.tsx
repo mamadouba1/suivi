@@ -36,7 +36,12 @@ export default function NavBar({ userName }: { userName: string }) {
           <p className="text-xs text-gray-400 mt-0.5 truncate">{userName}</p>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <div className="px-3 pt-3 pb-1">
+            <Link href="/accueil" className="flex items-center gap-2 text-xs text-gray-400 hover:text-brand-600 transition-colors">
+              ← Accueil
+            </Link>
+          </div>
+          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
           {LINKS.map((link) => (
             <Link key={link.href} href={link.href}
               className={"flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all " +
