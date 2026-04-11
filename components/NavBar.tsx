@@ -30,7 +30,7 @@ export default function NavBar({ userName }: { userName: string }) {
       {/* Sidebar desktop */}
       <aside className="hidden md:flex fixed left-0 top-0 h-full w-60 flex-col bg-white dark:bg-gray-800 border-r border-brand-100 dark:border-gray-700 shadow-sm z-20">
         <div className="p-5 border-b border-brand-100 dark:border-gray-700">
-          <img src="/logo.jpg" alt="Suivi" className="w-12 h-12 rounded-full object-cover mb-1" />
+          <img src="/logo.jpg" alt="Suivi" className="w-12 h-12 rounded-full object-cover object-center mb-1 bg-transparent" />
           <h1 className="font-bold text-brand-800 dark:text-brand-200 text-lg leading-tight" style={{ fontFamily: "Georgia, serif" }}>
             Suivi Dépenses
           </h1>
