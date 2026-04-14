@@ -100,6 +100,11 @@ export default async function BoutiqueDetailPage({ params }: { params: { id: str
           <p className="font-semibold text-gray-700">Rapports</p>
           <p className="text-xs text-gray-400 mt-1">Analyse mensuelle</p>
         </Link>
+        <Link href={"/boutique/" + params.id + "/retours"} className="card text-center hover:shadow-md transition cursor-pointer">
+          <div className="text-3xl mb-2">↩️</div>
+          <p className="font-semibold text-gray-700">Retours</p>
+          <p className="text-xs text-gray-400 mt-1">Remboursements</p>
+        </Link>
         <Link href={"/boutique/" + params.id + "/caisse"} className="card text-center hover:shadow-md transition cursor-pointer">
           <div className="text-3xl mb-2">💰</div>
           <p className="font-semibold text-gray-700">Caisse du jour</p>
